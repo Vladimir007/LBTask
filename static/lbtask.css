@@ -1,0 +1,17 @@
+.form-signin {
+    max-width: 350px;
+    padding: 15px;
+    margin: 25vh auto;
+}
+
+input {
+    margin: 10px;
+    color: #0000cc;
+}
+input:focus {
+    z-index: 2;
+}
+.form-error {
+    color: #e7423f;
+    size: 0.8em;
+}

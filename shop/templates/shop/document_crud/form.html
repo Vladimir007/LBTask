@@ -1,0 +1,43 @@
+{% extends 'base_form.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <script type="text/javascript" src="{% static 'calendar/calendar.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'shop/document_form.js' %}"></script>
+    <link href="{% static 'calendar/calendar.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block form_block %}
+    <div class="ui form">
+        <div class="two fields">
+            <div class="field">
+                    <label>{{ form.store.label }}</label>
+                    {{ form.store }}
+                    <small class="form-error">{{ form.store.errors }}</small>
+                </div>
+                <div class="field">
+                    <label>{{ form.doc_type.label }}</label>
+                    {{ form.doc_type }}
+                    <small class="form-error">{{ form.doc_type.errors }}</small>
+                </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>{{ form.products.label }}</label>
+                {{ form.products }}
+                <small class="form-error">{{ form.products.errors }}</small>
+                <br>
+                <div id="products_numbers"></div>
+            </div>
+            <div class="field">
+                <label>{{ form.doc_date.label }}</label>
+                {{ form.doc_date }}
+                <small class="form-error">{{ form.doc_date.errors }}</small>
+            </div>
+        </div>
+
+        <div class="ui error message"></div>
+    </div>
+    <br><br>
+{% endblock %}

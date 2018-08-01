@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <script type="text/javascript" src="{% static 'shop/products.js' %}"></script>
+{% endblock %}
+
+
+{% block body_block %}
+    <div class="ui two column grid">
+        <div class="column">
+            <h2>Products <a href="{% url 'shop:create_product' %}"><i class="ui plus icon"></i></a></h2>
+        </div>
+        <div class="right aligned column">
+            <div id="search_form" class="ui icon small input">
+                <input type="text" placeholder="Search...">
+                <i class="search icon"></i>
+            </div>
+        </div>
+    </div>
+    <br>
+    <h4 id="no_results_found" style="color: red;display: none;">No results found</h4>
+    <div id="products_table" style="display:none;">
+        <table class="ui compact celled selectable blue table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Creation date</th>
+                    <th>Change date</th>
+                </tr>
+            </thead>
+            <tbody id="table_rows"></tbody>
+        </table>
+        <br>
+        <div class="ui label" style="float: right">Total products<div id="total_objs_number" class="detail"></div></div>
+
+        <div class="ui small blue buttons">
+            <button id="first_page" class="ui icon button pagination-btn"><i class="ui fast backward icon"></i></button>
+            <button id="prev_page" class="ui icon button pagination-btn"><i class="ui backward icon"></i></button>
+            <button class="ui disabled button">Page <span id="curr_page"></span> of <span id="total_pages"></span></button>
+            <button id="next_page" class="ui icon button pagination-btn"><i class="ui forward icon"></i></button>
+            <button id="last_page" class="ui icon button pagination-btn"><i class="ui fast forward icon"></i></button>
+        </div>
+
+    </div>
+{% endblock %}

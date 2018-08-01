@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>{% if title %}{{ title }} | {% endif %}LBTask</title>
+        <script type="text/javascript" src="{% static "jquery-2.1.4.min.js" %}"></script>
+        <script type="text/javascript" src="{% static 'semantic/semantic.min.js' %}"></script>
+        <link href="{% static 'semantic/semantic.min.css' %}" rel="stylesheet">
+        <script type="text/javascript" src="{% static 'lbtask.js' %}"></script>
+        {% block head_block %}{% endblock %}
+    </head>
+    <body>
+        <div id="page_header" class="ui fixed inverted menu">
+            {% if user.is_staff %}
+                <a class="item" href="/admin/">Admin Tools</a>
+            {% endif %}
+            <a class="item" href="{% url 'shop:products' %}">Products</a>
+            <a class="item" href="{% url 'shop:stores' %}">Stores</a>
+            <a class="item" href="{% url 'shop:documents' %}">Documents</a>
+            <div class="right menu">
+            {% if user.is_authenticated %}
+                <a class="item">{{ user.username }}</a>
+                <a id="logout" class="item">Logout</a>
+            {% else %}
+                <a class="item" href="{% url 'login' %}">Sign In</a>
+            {% endif %}
+            </div>
+        </div>
+        <br>
+        <div style="margin: 30px;">{% block body_block %}{% endblock %}</div>
+    </body>
+</html>

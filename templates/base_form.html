@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h2 class="ui header">{{ title }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {% block form_block %}{% endblock %}
+        <div class="ui buttons">
+            {% if back_url %}
+                <a href="{{ back_url }}" class="ui grey button"><i class="ui backward icon"></i> Cancel</a>
+            {% endif %}
+            <input class="ui blue button" type="submit" value="{{ submit_btn }}">
+        </div>
+    </form>
+{% endblock %}

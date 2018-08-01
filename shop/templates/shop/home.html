@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <script type="text/javascript" src="{% static 'shop/api.js' %}"></script>
+{% endblock %}
+
+{% block body_block %}
+        <h1>Hello, {{ user.get_full_name }}!</h1>
+{% endblock %}

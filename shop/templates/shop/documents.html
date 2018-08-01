@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <script type="text/javascript" src="{% static 'calendar/calendar.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'shop/documents.js' %}"></script>
+    <link href="{% static 'calendar/calendar.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block body_block %}
+    <div class="ui grid">
+        {% if search_form %}
+        <div class="four wide column">
+            <h2>Search</h2>
+            <form id="search_docs_form" method="get">
+                <div class="ui form">
+                {% for field in search_form %}
+                    <div class="field">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                        <small class="form-error">{{ field.errors }}</small>
+                    </div>
+                {% endfor %}
+                <div class="ui buttons">
+                    <input class="ui blue button" type="submit" value="Search">
+                    <button id="reset_filters" class="ui grey button">Reset</button>
+                </div>
+                </div>
+            </form>
+        </div>
+        {% endif %}
+        <div class="twelve wide column">
+            <div class="ui two column grid">
+                <div class="column">
+                    <h2>Documents <a href="{% url 'shop:create_document' %}"><i class="ui plus icon"></i></a></h2>
+                </div>
+            </div>
+            <br>
+            {% if object_list|length %}
+                <div id="documents_table">
+                    <table class="ui compact celled selectable blue table">
+                        <thead>
+                            <tr>
+                                <th>Store</th>
+                                <th>Type</th>
+                                <th>Author</th>
+                                <th>Document date</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for document in object_list %}
+                                <tr>
+                                    <td>{{ document.store }}</td>
+                                    <td>{{ document.doc_type }}</td>
+                                    <td>{{ document.author.get_full_name }}</td>
+                                    <td>{{ document.doc_date }}</td>
+                                    <td><div class="ui mini buttons">
+                                        <a href="{% url 'shop:document' document.id %}" class="ui teal button">Details</a>
+                                        <a href="{% url 'shop:edit_document' document.id %}" class="ui blue button">Edit</a>
+                                        <a href="{% url 'shop:delete_document' document.id %}" class="ui red button">Delete</a>
+                                    </div></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <br>
+                    <div class="ui label" style="float: right">Total documents<div id="total_objs_number" class="detail">{{ paginator.count }}</div></div>
+
+                    <div class="ui small blue buttons">
+                        <a class="ui icon button pagination-btn{% if not page_obj.has_previous %} disabled{% endif %}"{% if page_obj.has_previous %} data-page="1"{% endif %}><i class="ui fast backward icon"></i></a>
+                        <a class="ui icon button pagination-btn{% if not page_obj.has_previous %} disabled{% endif %}"{% if page_obj.has_previous %}  data-page="{{ page_obj.previous_page_number }}"{% endif %}><i class="ui backward icon"></i></a>
+                        <button class="ui disabled button">Page {{ page_obj.number }} of {{ paginator.num_pages }}</button>
+                        <a class="ui icon button pagination-btn{% if page_obj.number == paginator.num_pages %} disabled{% endif %}"{% if page_obj.has_next %} data-page="{{ page_obj.next_page_number }}"{% endif %}><i class="ui forward icon"></i></a>
+                        <a class="ui icon button pagination-btn{% if page_obj.number == paginator.num_pages %} disabled{% endif %}"{% if page_obj.has_next %} data-page="{{ paginator.num_pages }}"{% endif %}><i class="ui fast forward icon"></i></a>
+                    </div>
+                </div>
+            {% else %}
+                <h4 id="no_results_found" style="color: red;">No results found</h4>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

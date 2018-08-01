@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h2 class="ui header">Document</h2>
+    <div class="ui divider"></div>
+    <div class="ui bulleted list">
+        <div class="item">Store: {{ document.store }}</div>
+        <div class="item">Type: {{ document.doc_type }}</div>
+        {% if document.products.all.count %}
+            <div class="item">
+                <span>Products:</span>
+                <div class="ui bulleted list">
+                    {% for product in document.products.all %}
+                        <div class="item">{{ product.product.name }}: {{ product.number }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        <div class="item">Author: {{ document.author.get_full_name }}</div>
+        <div class="item">Date: {{ document.doc_date }}</div>
+        <div class="item">Creation date: {{ document.date_created }}</div>
+        <div class="item">Change date: {{ document.date_changed }}</div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui buttons">
+        <a href="{% url 'shop:documents' %}" class="ui grey button"><i class="ui backward icon"></i> Back to documents</a>
+        <a href="{% url 'shop:edit_document' document.id %}" class="ui blue button">Edit</a>
+        <a href="{% url 'shop:delete_document' document.id %}" class="ui red button">Delete</a>
+    </div>
+
+{% endblock %}

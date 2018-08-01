@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h2 class="ui header">Store</h2>
+    <div class="ui divider"></div>
+    <div class="ui bulleted list">
+        <div class="item">Name: {{ object.name }}</div>
+        <div class="item">Creation date: {{ object.date_created }}</div>
+        <div class="item">Change date: {{ object.date_changed }}</div>
+    </div>
+    <div class="ui divider"></div>
+    <div class="ui buttons">
+        <a href="{% url 'shop:stores' %}" class="ui grey button"><i class="ui backward icon"></i> Back to stores</a>
+        <a href="{% url 'shop:edit_store' object.id %}" class="ui blue button">Edit</a>
+        <a href="{% url 'shop:delete_store' object.id %}" class="ui red button">Delete</a>
+    </div>
+
+{% endblock %}

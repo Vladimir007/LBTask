@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block head_block %}
+    <link href="{% static 'lbtask.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body_block %}
+    <form class="form-signin" method="post" action="{% url 'login' %}">
+        {% if user.is_authenticated %}
+            <p style="color: #a42117;">You don't have an access to that page. Please provide credentials for user that has it.</p>
+        {% endif %}
+        {% csrf_token %}
+        <div class="ui form blue segment">
+            <div class="ui field">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="ui field">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            {% if form.errors %}
+                <p style="color: red;">Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            <input class="ui fluid large blue button" type="submit" value="Login">
+            <input type="hidden" name="next" value="{{ next }}">
+        </div>
+    </form>
+{% endblock %}
